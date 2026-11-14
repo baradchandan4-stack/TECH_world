@@ -87,7 +87,7 @@ function NetworkBuilder() {
     const ok = chain.length === NET_STEPS.length && chain.every((id, i) => id === NET_STEPS[i].id);
     setResult(ok ? 'ok' : 'bad');
     if (ok) {
-      sfx.levelup();
+      sfx.levelUp();
       award({ xp: 80, coins: 20, kind: 'network', label: 'Network Builder' });
       pushToast(`+80 XP • ${t('testPassed')}`, '🌐', 'good');
     } else {
@@ -216,7 +216,7 @@ function RobotBuilder() {
     }
     if (p === target) {
       setRan('ok');
-      sfx.levelup();
+      sfx.levelUp();
       award({ xp: 90, coins: 22, kind: 'robot', label: 'Robot Workshop' });
       pushToast('+90 XP • Robot reached the goal', '🤖', 'good');
     } else {

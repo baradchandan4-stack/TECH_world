@@ -30,7 +30,7 @@ export default function Achievements({ go }: { go: Go }) {
                 <span className="ach-title">{pick(a.name, lang)}</span>
                 <span className="ach-desc">{pick(a.desc, lang)}</span>
                 <span className={`chip ${has ? 'ok' : ''}`}>
-                  {has ? `✓ ${t('unlocked')}` : `+${a.xp} XP`}
+                  {has ? `✓ ${t('unlocked')}` : `🔒 ${t('locked')}`}
                 </span>
               </div>
             );

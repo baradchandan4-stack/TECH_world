@@ -172,7 +172,7 @@ export default function MiniGames({ go }: { go: Go }) {
       const gained = Math.round(finalScore * 8 * diffDef.xp);
       saveMinigame(pct, game ?? 'game');
       if (finalScore > 0) pushToast(`+${gained} XP • ${pct}%`, '🎯', 'good');
-      sfx.levelup();
+      sfx.levelUp();
       return;
     }
     setIdx((i) => i + 1);
@@ -206,7 +206,7 @@ export default function MiniGames({ go }: { go: Go }) {
     const pct = Math.round((memoryDone.length / 2 / 6) * 100);
     saveMinigame(pct, 'memory');
     pushToast(`+${Math.round(pct * 0.6)} XP • ${pct}%`, '🧠', 'good');
-    sfx.levelup();
+    sfx.levelUp();
   };
 
   const gameList: { id: GameId; icon: string; name: Tri; desc: Tri }[] = [

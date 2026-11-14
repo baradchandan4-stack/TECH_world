@@ -52,10 +52,10 @@ export default function CircuitLab({ onBack }: { onBack: () => void }) {
             : tr({ en: 'LED off — check switch and voltage', gu: 'LED બંધ — સ્વિચ અને વોલ્ટેજ તપાસો', hi: 'LED बंद — स्विच और वोल्टेज जाँचें' });
 
   const run = () => {
-    sfx.scan();
+    sfx.whoosh();
     setTested((n) => n + 1);
     if (calc.state === 'good' || calc.state === 'bright') {
-      sfx.win();
+      sfx.levelUp();
       if (p.circuitsDone === 0) pushToast(tr({ en: 'First working circuit!', gu: 'પ્રથમ કાર્યરત સર્કિટ!', hi: 'पहला काम करता सर्किट!' }), '💡', 'good');
       finishCircuit();
     } else if (calc.state === 'burnt') {

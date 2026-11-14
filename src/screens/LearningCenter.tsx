@@ -23,7 +23,7 @@ export default function LearningCenter({ go }: { go: Go }) {
       if (onlySaved && !p.bookmarks.includes(l.id)) return false;
       if (cat !== 'all' && lessonWorld[l.id] !== cat) return false;
       if (!q) return true;
-      const hay = [l.name.en, l.name.gu, l.name.hi, l.def.en, l.def.gu, l.def.hi, l.func.en, l.func.gu, l.func.hi]
+      const hay = [l.name, l.def.en, l.def.gu, l.def.hi, l.func.en, l.func.gu, l.func.hi]
         .join(' ')
         .toLowerCase();
       return hay.includes(q);

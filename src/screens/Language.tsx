@@ -13,7 +13,7 @@ export default function LanguageScreen({ onDone }: { onDone: () => void }) {
     setLang(id);
     patch({ lang: id, onboarded: true });
     if (p.settings.music) startMusic();
-    sfx.win();
+    sfx.levelUp();
     setTimeout(() => {
       if (p.settings.voice) speak(tr({ en: 'Welcome to TECHQUEST WORLD! Let us begin your technology adventure.', gu: 'TECHQUEST WORLD માં આપનું સ્વાગત છે! ચાલો તમારી ટેકનોલોજી સફર શરૂ કરીએ.', hi: 'TECHQUEST WORLD में आपका स्वागत है! आइए आपकी टेक्नोलॉजी यात्रा शुरू करें।' }), id);
       onDone();

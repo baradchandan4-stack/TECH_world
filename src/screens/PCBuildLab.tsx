@@ -256,7 +256,7 @@ export default function PCBuildLab({ onBack }: { onBack: () => void }) {
     }
     setSlots((prev) => ({ ...prev, [slot]: part.id }));
     addLog(tr({ en: `Installed ${pickName(part)}.`, gu: `${pickName(part)} ઇન્સ્ટોલ થયું.`, hi: `${pickName(part)} इंस्टॉल हुआ।` }), 'ok');
-    sfx.pop();
+    sfx.click();
     setSel(null);
     setBoot('idle');
   };
@@ -282,7 +282,7 @@ export default function PCBuildLab({ onBack }: { onBack: () => void }) {
       addLog(issues[0], 'err');
       return;
     }
-    sfx.win();
+    sfx.levelUp();
     setBoot('ok');
     addLog(
       tr({

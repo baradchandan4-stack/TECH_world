@@ -86,7 +86,7 @@ export default function Daily({ go }: { go: Go }) {
               disabled={claimed || doneCount < 1}
               onClick={() => {
                 claimDaily();
-                sfx.levelup();
+                sfx.levelUp();
                 pushToast(`+60 XP • +25 🪙`, '🎁', 'good');
               }}
             >

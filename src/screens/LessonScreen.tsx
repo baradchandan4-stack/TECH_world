@@ -2,7 +2,7 @@ import { Suspense, useMemo, useState } from 'react';
 import { ALL_LESSONS, LESSON_BY_ID, WORLDS, pick } from '../content';
 import { useGame } from '../state/game';
 import { Bar, Btn, Card, TopBar } from '../components/UI';
-import ComponentModel from '../three/ComponentModel';
+import { ComponentModel } from '../three/ComponentModel';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { sfx, speak } from '../lib/audio';
@@ -110,7 +110,7 @@ export default function LessonScreen({ lessonId, go }: { lessonId: string; go: G
     const base = quizPick === lesson.quiz.correct ? 100 : 60;
     completeLesson(lesson.id, world?.id ?? WORLDS[0].id, base);
     setFinished(true);
-    sfx.levelup();
+    sfx.levelUp();
     pushToast(`${pick(lesson.name, lang)} — ${t('lessonComplete')}`, '🎉', 'good');
   };
 

@@ -25,14 +25,14 @@ export default function RepairCenter({ onBack }: { onBack: () => void }) {
 
   const runTest = (i: number) => {
     if (testsRun.includes(i)) return;
-    sfx.scan();
+    sfx.whoosh();
     setTestsRun((prev) => [...prev, i]);
   };
 
   const submitFix = () => {
     if (fix === null) return;
     if (fix === c.correctFix && cause === c.correctCause) {
-      sfx.win();
+      sfx.levelUp();
       setDone(true);
       setFeedback(tr({ en: 'Device repaired and tested. Great technician work!', gu: 'ઉપકરણ રિપેર થયું અને ટેસ્ટ પાસ થયું. ઉત્તમ કાર્ય!', hi: 'डिवाइस ठीक हो गया और टेस्ट पास हुआ। बढ़िया काम!' }));
       if (!solved) finishRepair(c.id);
