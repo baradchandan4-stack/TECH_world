@@ -100,7 +100,9 @@ app.get('/api/player/:id', (req, res) => {
   const id = req.params.id;
   if (!PLAYER_ID.test(id)) return res.status(400).json({ error: 'invalid_id' });
   const player = store.players[id];
-  if (!player) return res.status(404).json({ error: 'not_found' });
+  // A brand-new guest id has no server record yet: answer 200 with an empty
+  // object so the client keeps its local save instead of logging a 404.
+  if (!player) return res.json({});
   res.json(player);
 });
 
