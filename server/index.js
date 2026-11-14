@@ -134,9 +134,9 @@ if (fs.existsSync(dist)) {
       },
     }),
   );
-  app.get('*', (_req, res) => res.sendFile(path.join(dist, 'index.html')));
+  app.get('/*splat', (_req, res) => res.sendFile(path.join(dist, 'index.html')));
 } else {
-  app.get('*', (_req, res) =>
+  app.get('/*splat', (_req, res) =>
     res.status(503).type('html').send('<h1>TECHQUEST WORLD</h1><p>Build the client first: npm run build</p>'),
   );
 }
