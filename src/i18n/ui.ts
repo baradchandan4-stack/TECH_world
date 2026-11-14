@@ -1,0 +1,357 @@
+import type { Lang, Tri } from '../content/types';
+
+export const UI = {
+  // Brand & intro
+  appName: { en: 'TECHQUEST WORLD', gu: 'TECHQUEST WORLD', hi: 'TECHQUEST WORLD' },
+  brand: { en: 'CS STUDIO', gu: 'CS STUDIO', hi: 'CS STUDIO' },
+  tagline: {
+    en: 'LEARN • EXPLORE • BUILD • REPAIR',
+    gu: 'શીખો • શોધો • બનાવો • રિપેર કરો',
+    hi: 'सीखें • खोजें • बनाएँ • ठीक करें',
+  },
+  intro: {
+    en: 'Enter an amazing world where technology becomes an adventure. Explore computer systems, discover electronic components, build virtual computers, understand circuits, solve technical problems and become a Technology Master.',
+    gu: 'એક અદ્ભુત દુનિયામાં પ્રવેશ કરો જ્યાં ટેકનોલોજી એક સાહસ બની જાય છે. કમ્પ્યુટર સિસ્ટમ શોધો, ઇલેક્ટ્રોનિક ઘટકો ઓળખો, વર્ચ્યુઅલ કમ્પ્યુટર બનાવો, સર્કિટ સમજો, ટેકનિકલ સમસ્યાઓ ઉકેલો અને ટેકનોલોજી માસ્ટર બનો.',
+    hi: 'एक अद्भुत दुनिया में प्रवेश करें जहाँ तकनीक एक रोमांच बन जाती है। कंप्यूटर सिस्टम खोजें, इलेक्ट्रॉनिक घटक पहचानें, वर्चुअल कंप्यूटर बनाएँ, सर्किट समझें, तकनीकी समस्याएँ हल करें और टेक्नोलॉजी मास्टर बनें।',
+  },
+  chooseLanguage: {
+    en: 'CHOOSE YOUR LANGUAGE',
+    gu: 'તમારી ભાષા પસંદ કરો',
+    hi: 'अपनी भाषा चुनें',
+  },
+  chooseLanguageHint: {
+    en: 'You can change the language any time in Settings.',
+    gu: 'તમે કોઈપણ સમયે સેટિંગ્સમાં ભાષા બદલી શકો છો.',
+    hi: 'आप किसी भी समय सेटिंग्स में भाषा बदल सकते हैं।',
+  },
+  startJourney: { en: 'START JOURNEY', gu: 'યાત્રા શરૂ કરો', hi: 'यात्रा शुरू करें' },
+  continueBtn: { en: 'CONTINUE', gu: 'ચાલુ રાખો', hi: 'जारी रखें' },
+  loading: { en: 'Loading…', gu: 'લોડ થઈ રહ્યું છે…', hi: 'लोड हो रहा है…' },
+
+  // Navigation / menu
+  welcomeExplorer: { en: 'Welcome, Explorer!', gu: 'સ્વાગત છે, એક્સપ્લોરર!', hi: 'स्वागत है, एक्सप्लोरर!' },
+  playGame: { en: 'PLAY GAME', gu: 'ગેમ રમો', hi: 'गेम खेलें' },
+  exploreWorlds: { en: 'EXPLORE WORLDS', gu: 'દુનિયાઓ શોધો', hi: 'दुनिया खोजें' },
+  learningCenter: { en: 'LEARNING CENTER', gu: 'લર્નિંગ સેન્ટર', hi: 'लर्निंग सेंटर' },
+  virtualLab: { en: 'VIRTUAL LAB', gu: 'વર્ચ્યુઅલ લેબ', hi: 'वर्चुअल लैब' },
+  repairCenter: { en: 'REPAIR CENTER', gu: 'રિપેર સેન્ટર', hi: 'रिपेयर सेंटर' },
+  miniGames: { en: 'MINI GAMES', gu: 'મિની ગેમ્સ', hi: 'मिनी गेम्स' },
+  dailyChallenges: { en: 'DAILY CHALLENGES', gu: 'દૈનિક ચેલેન્જ', hi: 'दैनिक चुनौतियाँ' },
+  myProgress: { en: 'MY PROGRESS', gu: 'મારી પ્રગતિ', hi: 'मेरी प्रगति' },
+  achievements: { en: 'ACHIEVEMENTS', gu: 'સિદ્ધિઓ', hi: 'उपलब्धियाँ' },
+  settings: { en: 'SETTINGS', gu: 'સેટિંગ્સ', hi: 'सेटिंग्स' },
+  about: { en: 'ABOUT CS STUDIO', gu: 'CS STUDIO વિશે', hi: 'CS STUDIO के बारे में' },
+  home: { en: 'HOME', gu: 'હોમ', hi: 'होम' },
+  back: { en: 'BACK', gu: 'પાછળ', hi: 'वापस' },
+  close: { en: 'CLOSE', gu: 'બંધ કરો', hi: 'बंद करें' },
+
+  // Player stats
+  level: { en: 'Level', gu: 'લેવલ', hi: 'लेवल' },
+  xp: { en: 'XP', gu: 'XP', hi: 'XP' },
+  coins: { en: 'Coins', gu: 'કોઈન્સ', hi: 'सिक्के' },
+  stars: { en: 'Stars', gu: 'સ્ટાર', hi: 'सितारे' },
+  missions: { en: 'Missions', gu: 'મિશન', hi: 'मिशन' },
+  progress: { en: 'Progress', gu: 'પ્રગતિ', hi: 'प्रगति' },
+  rank: { en: 'Rank', gu: 'રેન્ક', hi: 'रैंक' },
+  guest: { en: 'Guest Explorer', gu: 'ગેસ્ટ એક્સપ્લોરર', hi: 'गेस्ट एक्सप्लोरर' },
+  playerName: { en: 'Player name', gu: 'ખેલાડીનું નામ', hi: 'खिलाड़ी का नाम' },
+  save: { en: 'SAVE', gu: 'સેવ કરો', hi: 'सेव करें' },
+  editProfile: { en: 'EDIT PROFILE', gu: 'પ્રોફાઇલ બદલો', hi: 'प्रोफ़ाइल बदलें' },
+  chooseAvatar: { en: 'Choose avatar', gu: 'એવતાર પસંદ કરો', hi: 'अवतार चुनें' },
+  saved: { en: 'Saved', gu: 'સેવ થયું', hi: 'सेव हो गया' },
+
+  // Worlds & lessons
+  world: { en: 'World', gu: 'દુનિયા', hi: 'दुनिया' },
+  worlds: { en: 'Worlds', gu: 'દુનિયાઓ', hi: 'दुनियाएँ' },
+  locked: { en: 'LOCKED', gu: 'લૉક છે', hi: 'लॉक है' },
+  unlocked: { en: 'UNLOCKED', gu: 'ખુલ્લું', hi: 'खुला' },
+  unlockAtLevel: { en: 'Unlocks at level', gu: 'લેવલ પર ખુલશે', hi: 'लेवल पर खुलेगा' },
+  mission: { en: 'Mission', gu: 'મિશન', hi: 'मिशन' },
+  startMission: { en: 'START MISSION', gu: 'મિશન શરૂ કરો', hi: 'मिशन शुरू करें' },
+  lessons: { en: 'Lessons', gu: 'પાઠ', hi: 'पाठ' },
+  openWorld: { en: 'OPEN WORLD', gu: 'દુનિયા ખોલો', hi: 'दुनिया खोलें' },
+  complete: { en: 'COMPLETE', gu: 'પૂર્ણ', hi: 'पूर्ण' },
+  completed: { en: 'Completed', gu: 'પૂર્ણ થયું', hi: 'पूरा हुआ' },
+  worldComplete: { en: 'World completed!', gu: 'દુનિયા પૂર્ણ થઈ!', hi: 'दुनिया पूरी हुई!' },
+
+  // Lesson stages
+  explore: { en: 'EXPLORE', gu: 'શોધો', hi: 'खोजें' },
+  identify: { en: 'IDENTIFY', gu: 'ઓળખો', hi: 'पहचानें' },
+  learn: { en: 'LEARN', gu: 'શીખો', hi: 'सीखें' },
+  watch: { en: 'WATCH', gu: 'જુઓ', hi: 'देखें' },
+  practice: { en: 'PRACTICE', gu: 'અભ્યાસ', hi: 'अभ्यास' },
+  challenge: { en: 'CHALLENGE', gu: 'ચેલેન્જ', hi: 'चुनौती' },
+  test: { en: 'TEST', gu: 'ટેસ્ટ', hi: 'टेस्ट' },
+  reward: { en: 'REWARD', gu: 'ઇનામ', hi: 'इनाम' },
+  definition: { en: 'Definition', gu: 'વ્યાખ્યા', hi: 'परिभाषा' },
+  mainFunction: { en: 'Main Function', gu: 'મુખ્ય કાર્ય', hi: 'मुख्य कार्य' },
+  principle: { en: 'Working Principle', gu: 'કાર્ય સિદ્ધાંત', hi: 'कार्य सिद्धांत' },
+  applications: { en: 'Applications', gu: 'ઉપયોગો', hi: 'उपयोग' },
+  examples: { en: 'Real-World Examples', gu: 'વાસ્તવિક ઉદાહરણો', hi: 'वास्तविक उदाहरण' },
+  related: { en: 'Related Components', gu: 'સંબંધિત ઘટકો', hi: 'संबंधित घटक' },
+  rotateHint: {
+    en: 'Drag the model to rotate • pinch or scroll to zoom',
+    gu: 'મોડેલ ફેરવવા ડ્રેગ કરો • ઝૂમ કરવા સ્ક્રોલ કરો',
+    hi: 'मॉडल घुमाने के लिए ड्रैग करें • ज़ूम के लिए स्क्रॉल करें',
+  },
+  animatedDemo: { en: 'Animated demonstration', gu: 'એનિમેટેડ નિદર્શન', hi: 'एनिमेटेड प्रदर्शन' },
+  playDemo: { en: 'PLAY DEMO', gu: 'ડેમો ચલાવો', hi: 'डेमो चलाएँ' },
+  stopDemo: { en: 'STOP', gu: 'બંધ કરો', hi: 'रोकें' },
+  practiceTask: {
+    en: 'Tap the glowing model parts to inspect them.',
+    gu: 'તપાસવા માટે ચમકતા મોડેલ ભાગોને ટેપ કરો.',
+    hi: 'जाँचने के लिए चमकते मॉडल भागों को टैप करें।',
+  },
+  partsFound: { en: 'Parts inspected', gu: 'ભાગો તપાસ્યા', hi: 'भाग जाँचे' },
+  finishLesson: { en: 'FINISH LESSON', gu: 'પાઠ પૂર્ણ કરો', hi: 'पाठ पूरा करें' },
+
+  // Quiz
+  quizTitle: { en: 'Knowledge Quiz', gu: 'નોલેજ ક્વિઝ', hi: 'ज्ञान क्विज़' },
+  question: { en: 'Question', gu: 'પ્રશ્ન', hi: 'प्रश्न' },
+  submit: { en: 'SUBMIT', gu: 'સબમિટ', hi: 'सबमिट' },
+  nextQuestion: { en: 'NEXT', gu: 'આગળ', hi: 'आगे' },
+  seeResult: { en: 'SEE RESULT', gu: 'પરિણામ જુઓ', hi: 'परिणाम देखें' },
+  correct: { en: 'Correct!', gu: 'સાચું!', hi: 'सही!' },
+  incorrect: { en: 'Not quite', gu: 'ખોટું', hi: 'गलत' },
+  yourScore: { en: 'Your score', gu: 'તમારો સ્કોર', hi: 'आपका स्कोर' },
+  retry: { en: 'TRY AGAIN', gu: 'ફરી પ્રયાસ', hi: 'फिर कोशिश करें' },
+  xpEarned: { en: 'XP earned', gu: 'XP મળ્યા', hi: 'XP मिले' },
+  coinsEarned: { en: 'Coins earned', gu: 'કોઈન્સ મળ્યા', hi: 'सिक्के मिले' },
+  answerToUnlock: {
+    en: 'Answer the quiz to earn XP for this lesson.',
+    gu: 'આ પાઠના XP મેળવવા ક્વિઝના જવાબ આપો.',
+    hi: 'इस पाठ के XP पाने के लिए क्विज़ के उत्तर दें।',
+  },
+
+  // Learning center
+  search: { en: 'Search topics…', gu: 'વિષય શોધો…', hi: 'विषय खोजें…' },
+  allCategories: { en: 'All', gu: 'બધા', hi: 'सभी' },
+  categories: { en: 'Categories', gu: 'શ્રેણીઓ', hi: 'श्रेणियाँ' },
+  bookmark: { en: 'Bookmark', gu: 'બુકમાર્ક', hi: 'बुकमार्क' },
+  bookmarked: { en: 'Bookmarked', gu: 'બુકમાર્ક થયું', hi: 'बुकमार्क हुआ' },
+  savedLessons: { en: 'Saved Lessons', gu: 'સેવ કરેલા પાઠ', hi: 'सेव किए पाठ' },
+  noResults: { en: 'No topics found', gu: 'કોઈ વિષય મળ્યો નહીં', hi: 'कोई विषय नहीं मिला' },
+  topics: { en: 'topics', gu: 'વિષયો', hi: 'विषय' },
+
+  // Simulators
+  pcLabTitle: { en: 'PC BUILDING LAB', gu: 'PC બિલ્ડિંગ લેબ', hi: 'PC बिल्डिंग लैब' },
+  pcLabHint: {
+    en: 'Drag a part into its slot, or tap a part then tap the slot.',
+    gu: 'ભાગને તેના સ્લોટમાં ડ્રેગ કરો, અથવા ભાગ પર ટેપ કરીને સ્લોટ પર ટેપ કરો.',
+    hi: 'पार्ट को उसके स्लॉट में ड्रैग करें, या पार्ट पर टैप करके स्लॉट पर टैप करें।',
+  },
+  partsBin: { en: 'Parts Bin', gu: 'પાર્ટ્સ બિન', hi: 'पार्ट्स बिन' },
+  slot_motherboard: { en: 'Motherboard', gu: 'મધરબોર્ડ', hi: 'मदरबोर्ड' },
+  slot_cpu: { en: 'CPU', gu: 'CPU', hi: 'CPU' },
+  slot_ram: { en: 'RAM', gu: 'RAM', hi: 'RAM' },
+  slot_storage: { en: 'Storage', gu: 'સ્ટોરેજ', hi: 'स्टोरेज' },
+  slot_gpu: { en: 'Graphics Card', gu: 'ગ્રાફિક્સ કાર્ડ', hi: 'ग्राफ़िक्स कार्ड' },
+  slot_psu: { en: 'Power Supply', gu: 'પાવર સપ્લાય', hi: 'पावर सप्लाई' },
+  slot_cooler: { en: 'CPU Cooler', gu: 'CPU કૂલર', hi: 'CPU कूलर' },
+  emptySlot: { en: 'Empty slot', gu: 'ખાલી સ્લોટ', hi: 'खाली स्लॉट' },
+  testComputer: { en: 'TEST COMPUTER', gu: 'કમ્પ્યુટર ટેસ્ટ કરો', hi: 'कंप्यूटर टेस्ट करें' },
+  resetBuild: { en: 'RESET', gu: 'રીસેટ', hi: 'रीसेट' },
+  bootOk: {
+    en: 'System boots successfully! POST passed, OS loading…',
+    gu: 'સિસ્ટમ સફળતાપૂર્વક બૂટ થઈ! POST પાસ થયું, OS લોડ થઈ રહ્યું છે…',
+    hi: 'सिस्टम सफलतापूर्वक बूट हुआ! POST पास, OS लोड हो रहा है…',
+  },
+  bootFail: { en: 'The build does not boot yet:', gu: 'બિલ્ડ હજી બૂટ થતું નથી:', hi: 'बिल्ड अभी बूट नहीं होता:' },
+  incompatible: { en: 'Incompatible part', gu: 'અસંગત ભાગ', hi: 'असंगत पार्ट' },
+  compatible: { en: 'Compatible', gu: 'સંગત', hi: 'संगत' },
+  buildComplete: {
+    en: 'Your virtual computer is complete and running!',
+    gu: 'તમારું વર્ચ્યુઅલ કમ્પ્યુટર પૂર્ણ છે અને ચાલી રહ્યું છે!',
+    hi: 'आपका वर्चुअल कंप्यूटर पूरा है और चल रहा है!',
+  },
+
+  circuitLabTitle: { en: 'CIRCUIT LAB', gu: 'સર્કિટ લેબ', hi: 'सर्किट लैब' },
+  battery: { en: 'Battery', gu: 'બેટરી', hi: 'बैटरी' },
+  resistor: { en: 'Resistor', gu: 'રેઝિસ્ટર', hi: 'रेज़िस्टर' },
+  led: { en: 'LED', gu: 'LED', hi: 'LED' },
+  switch: { en: 'Switch', gu: 'સ્વિચ', hi: 'स्विच' },
+  voltage: { en: 'Voltage', gu: 'વોલ્ટેજ', hi: 'वोल्टेज' },
+  current: { en: 'Current', gu: 'કરંટ', hi: 'करंट' },
+  resistance: { en: 'Resistance', gu: 'રેઝિસ્ટન્સ', hi: 'रेज़िस्टेंस' },
+  power: { en: 'Power', gu: 'પાવર', hi: 'पावर' },
+  addToCircuit: { en: 'ADD TO CIRCUIT', gu: 'સર્કિટમાં ઉમેરો', hi: 'सर्किट में जोड़ें' },
+  clearCircuit: { en: 'CLEAR', gu: 'સાફ કરો', hi: 'साफ़ करें' },
+  runSimulation: { en: 'RUN SIMULATION', gu: 'સિમ્યુલેશન ચલાવો', hi: 'सिमुलेशन चलाएँ' },
+  circuitOpen: {
+    en: 'Circuit is open — close the switch to let current flow.',
+    gu: 'સર્કિટ ખુલ્લું છે — કરંટ વહેવા દેવા સ્વિચ બંધ કરો.',
+    hi: 'सर्किट खुला है — करंट बहने दें, स्विच बंद करें।',
+  },
+  circuitClosed: { en: 'Circuit closed. Current is flowing.', gu: 'સર્કિટ બંધ છે. કરંટ વહે છે.', hi: 'सर्किट बंद है। करंट बह रहा है।' },
+  ledBright: { en: 'LED glows brightly.', gu: 'LED તેજસ્વી ચમકે છે.', hi: 'LED तेज़ चमकता है।' },
+  ledDim: { en: 'LED is dim — resistance is too high.', gu: 'LED મંદ છે — રેઝિસ્ટન્સ વધુ છે.', hi: 'LED धीमा है — रेज़िस्टेंस ज़्यादा है।' },
+  ledBurnt: {
+    en: 'Too much current! In a real circuit the LED would burn. Always use a resistor.',
+    gu: 'બહુ વધુ કરંટ! વાસ્તવમાં LED બળી જાય. હંમેશા રેઝિસ્ટર વાપરો.',
+    hi: 'बहुत ज़्यादा करंट! असल में LED जल जाएगा। हमेशा रेज़िस्टर लगाएँ।',
+  },
+  ohmLaw: { en: "Ohm's Law: V = I × R", gu: 'ઓહ્મનો નિયમ: V = I × R', hi: 'ओम का नियम: V = I × R' },
+  safeLabNote: {
+    en: 'Simulation only: safe low voltage (1.5–9 V). Never experiment with mains electricity.',
+    gu: 'ફક્ત સિમ્યુલેશન: સુરક્ષિત નીચું વોલ્ટેજ (1.5–9 V). મેઇન્સ વીજળી સાથે ક્યારેય પ્રયોગ ન કરો.',
+    hi: 'केवल सिमुलेशन: सुरक्षित कम वोल्टेज (1.5–9 V)। मेन्स बिजली से कभी प्रयोग न करें।',
+  },
+
+  repairTitle: { en: 'REPAIR CENTER', gu: 'રિપેર સેન્ટર', hi: 'रिपेयर सेंटर' },
+  customerComplaint: { en: 'Customer complaint', gu: 'ગ્રાહકની ફરિયાદ', hi: 'ग्राहक की शिकायत' },
+  inspectDevice: { en: 'INSPECT DEVICE', gu: 'ઉપકરણ તપાસો', hi: 'डिवाइस जाँचें' },
+  selectCause: { en: 'Select the most likely cause', gu: 'સૌથી સંભવિત કારણ પસંદ કરો', hi: 'सबसे संभावित कारण चुनें' },
+  runTest: { en: 'RUN TEST', gu: 'ટેસ્ટ ચલાવો', hi: 'टेस्ट चलाएँ' },
+  chooseFix: { en: 'Choose a safe solution', gu: 'સુરક્ષિત ઉપાય પસંદ કરો', hi: 'सुरक्षित समाधान चुनें' },
+  testDevice: { en: 'TEST DEVICE', gu: 'ઉપકરણ ટેસ્ટ કરો', hi: 'डिवाइस टेस्ट करें' },
+  nextCase: { en: 'NEXT CASE', gu: 'આગલો કેસ', hi: 'अगला केस' },
+  caseSolved: { en: 'Case solved!', gu: 'કેસ ઉકેલાયો!', hi: 'केस हल हुआ!' },
+  diagnosisWrong: {
+    en: 'That diagnosis does not match the test results. Try again.',
+    gu: 'આ નિદાન ટેસ્ટ પરિણામ સાથે મેળ ખાતું નથી. ફરી પ્રયાસ કરો.',
+    hi: 'यह निदान टेस्ट परिणाम से मेल नहीं खाता। फिर कोशिश करें।',
+  },
+  inspectHint: {
+    en: 'Run the diagnostic tests to collect evidence.',
+    gu: 'પુરાવા મેળવવા ડાયગ્નોસ્ટિક ટેસ્ટ ચલાવો.',
+    hi: 'सबूत जुटाने के लिए डायग्नोस्टिक टेस्ट चलाएँ।',
+  },
+  safetyNote: {
+    en: 'Simulation only. Never open a power supply or touch live wiring — stored energy can be lethal.',
+    gu: 'ફક્ત સિમ્યુલેશન. પાવર સપ્લાય ક્યારેય ન ખોલો અથવા જીવંત વાયરિંગને સ્પર્શ ન કરો — સંગ્રહિત ઊર્જા જીવલેણ હોઈ શકે.',
+    hi: 'केवल सिमुलेशन। पावर सप्लाई कभी न खोलें या जीवित वायरिंग को न छुएँ — संचित ऊर्जा जानलेवा हो सकती है।',
+  },
+  solved: { en: 'Solved', gu: 'ઉકેલાયું', hi: 'हल हुआ' },
+  evidence: { en: 'Evidence', gu: 'પુરાવા', hi: 'सबूत' },
+
+  // Mini games
+  minigamesTitle: { en: 'MINI GAMES', gu: 'મિની ગેમ્સ', hi: 'मिनी गेम्स' },
+  easy: { en: 'Easy', gu: 'સરળ', hi: 'आसान' },
+  medium: { en: 'Medium', gu: 'મધ્યમ', hi: 'मध्यम' },
+  hard: { en: 'Hard', gu: 'કઠિન', hi: 'कठिन' },
+  expert: { en: 'Expert', gu: 'નિષ્ણાત', hi: 'विशेषज्ञ' },
+  play: { en: 'PLAY', gu: 'રમો', hi: 'खेलें' },
+  score: { en: 'Score', gu: 'સ્કોર', hi: 'स्कोर' },
+  best: { en: 'Best', gu: 'શ્રેષ્ઠ', hi: 'सर्वश्रेष्ठ' },
+  timeLeft: { en: 'Time', gu: 'સમય', hi: 'समय' },
+  gameOver: { en: 'Round complete!', gu: 'રાઉન્ડ પૂર્ણ!', hi: 'राउंड पूरा!' },
+  whichComponent: {
+    en: 'Which component is this?',
+    gu: 'આ કયો ઘટક છે?',
+    hi: 'यह कौन सा घटक है?',
+  },
+  findTheFault: { en: 'Find the fault', gu: 'ખામી શોધો', hi: 'खराबी खोजें' },
+  matchCable: { en: 'Match the cable', gu: 'કેબલ મેચ કરો', hi: 'केबल मैच करें' },
+  memoryGame: { en: 'Component Memory', gu: 'ઘટક મેમરી', hi: 'घटक मेमोरी' },
+  techQuiz: { en: 'Tech Quiz', gu: 'ટેક ક્વિઝ', hi: 'टेक क्विज़' },
+  speedTechnician: { en: 'Speed Technician', gu: 'સ્પીડ ટેકનિશિયન', hi: 'स्पीड तकनीशियन' },
+  pairsFound: { en: 'Pairs', gu: 'જોડ', hi: 'जोड़े' },
+  startGame: { en: 'START', gu: 'શરૂ કરો', hi: 'शुरू करें' },
+  quitGame: { en: 'QUIT', gu: 'બહાર', hi: 'बाहर' },
+  newBest: { en: 'New best score!', gu: 'નવો શ્રેષ્ઠ સ્કોર!', hi: 'नया सर्वश्रेष्ठ स्कोर!' },
+  playAgain: { en: 'PLAY AGAIN', gu: 'ફરી રમો', hi: 'फिर खेलें' },
+
+  // Daily / progress / achievements
+  dailyTitle: { en: 'DAILY CHALLENGE', gu: 'દૈનિક ચેલેન્જ', hi: 'दैनिक चुनौती' },
+  dailyDesc: {
+    en: 'Answer today’s technology question to keep your streak and earn bonus coins.',
+    gu: 'તમારો સ્ટ્રીક જાળવવા અને બોનસ કોઈન્સ મેળવવા આજના ટેકનોલોજી પ્રશ્નનો જવાબ આપો.',
+    hi: 'अपनी स्ट्रीक बनाए रखने और बोनस सिक्के कमाने के लिए आज के तकनीक प्रश्न का उत्तर दें।',
+  },
+  claimReward: { en: 'CLAIM REWARD', gu: 'ઇનામ લો', hi: 'इनाम लें' },
+  claimedToday: { en: 'Claimed today', gu: 'આજે લીધું', hi: 'आज लिया' },
+  comeBack: { en: 'Come back tomorrow for a new challenge.', gu: 'નવી ચેલેન્જ માટે કાલે ફરી આવો.', hi: 'नई चुनौती के लिए कल फिर आएँ।' },
+  earned: { en: 'Earned', gu: 'મળ્યું', hi: 'मिला' },
+  notEarned: { en: 'Locked', gu: 'લૉક', hi: 'लॉक' },
+  lessonsCompleted: { en: 'Lessons completed', gu: 'પૂર્ણ પાઠ', hi: 'पूरे पाठ' },
+  quizzesTaken: { en: 'Quizzes taken', gu: 'આપેલી ક્વિઝ', hi: 'दी गई क्विज़' },
+  history: { en: 'Learning history', gu: 'શીખવાનો ઇતિહાસ', hi: 'सीखने का इतिहास' },
+  noHistory: { en: 'No activity yet. Start a lesson!', gu: 'હજી કોઈ પ્રવૃત્તિ નથી. પાઠ શરૂ કરો!', hi: 'अभी कोई गतिविधि नहीं। पाठ शुरू करें!' },
+  certificate: { en: 'COMPLETION CERTIFICATE', gu: 'પૂર્ણતા પ્રમાણપત્ર', hi: 'पूर्णता प्रमाणपत्र' },
+  certificateText: {
+    en: 'has successfully completed the technology learning journey of',
+    gu: 'એ સફળતાપૂર્વક ટેકનોલોજી શીખવાની યાત્રા પૂર્ણ કરી છે',
+    hi: 'ने तकनीक सीखने की यात्रा सफलतापूर्वक पूरी की है',
+  },
+  leaderboard: { en: 'LEADERBOARD', gu: 'લીડરબોર્ડ', hi: 'लीडरबोर्ड' },
+
+  // Settings
+  language: { en: 'Language', gu: 'ભાષા', hi: 'भाषा' },
+  music: { en: 'Background music', gu: 'બેકગ્રાઉન્ડ સંગીત', hi: 'बैकग्राउंड संगीत' },
+  sfx: { en: 'Sound effects', gu: 'સાઉન્ડ ઇફેક્ટ્સ', hi: 'साउंड इफ़ेक्ट' },
+  voice: { en: 'TECHBOT voice', gu: 'TECHBOT અવાજ', hi: 'TECHBOT आवाज़' },
+  graphics: { en: 'Graphics quality', gu: 'ગ્રાફિક્સ ગુણવત્તા', hi: 'ग्राफ़िक्स गुणवत्ता' },
+  high: { en: 'High', gu: 'ઊંચી', hi: 'उच्च' },
+  low: { en: 'Low', gu: 'નીચી', hi: 'निम्न' },
+  on: { en: 'On', gu: 'ચાલુ', hi: 'चालू' },
+  off: { en: 'Off', gu: 'બંધ', hi: 'बंद' },
+  resetProgress: { en: 'RESET PROGRESS', gu: 'પ્રગતિ રીસેટ કરો', hi: 'प्रगति रीसेट करें' },
+  resetConfirm: {
+    en: 'This deletes your XP, coins and completed lessons. Continue?',
+    gu: 'આ તમારા XP, કોઈન્સ અને પૂર્ણ પાઠ ડિલીટ કરશે. ચાલુ રાખવું?',
+    hi: 'इससे आपके XP, सिक्के और पूरे पाठ मिट जाएँगे। जारी रखें?',
+  },
+  yes: { en: 'YES', gu: 'હા', hi: 'हाँ' },
+  no: { en: 'NO', gu: 'ના', hi: 'नहीं' },
+  aboutText: {
+    en: 'Our vision is to make technology education exciting, accessible and interactive. Learning should be more than reading books — students should explore, experiment, build, understand and solve problems.',
+    gu: 'અમારો દ્રષ્ટિકોણ ટેકનોલોજી શિક્ષણને રોમાંચક, સુલભ અને ઇન્ટરેક્ટિવ બનાવવાનો છે. શીખવું એ ફક્ત પુસ્તક વાંચવાથી વધુ હોવું જોઈએ — વિદ્યાર્થીઓએ શોધવું, પ્રયોગ કરવો, બનાવવું, સમજવું અને સમસ્યાઓ ઉકેલવી જોઈએ.',
+    hi: 'हमारी दृष्टि तकनीक शिक्षा को रोमांचक, सुलभ और इंटरैक्टिव बनाना है। सीखना केवल किताबें पढ़ने से अधिक होना चाहिए — विद्यार्थी खोजें, प्रयोग करें, बनाएँ, समझें और समस्याएँ हल करें।',
+  },
+  missionText: {
+    en: 'Our mission is to make computer hardware, electronics, repairing and modern technology easier to understand through virtual exploration and educational gaming.',
+    gu: 'અમારું મિશન કમ્પ્યુટર હાર્ડવેર, ઇલેક્ટ્રોનિક્સ, રિપેરિંગ અને આધુનિક ટેકનોલોજીને વર્ચ્યુઅલ શોધ અને શૈક્ષણિક ગેમિંગ દ્વારા સમજવું સરળ બનાવવાનું છે.',
+    hi: 'हमारा मिशन कंप्यूटर हार्डवेयर, इलेक्ट्रॉनिक्स, रिपेयरिंग और आधुनिक तकनीक को वर्चुअल खोज और शैक्षिक गेमिंग से समझना आसान बनाना है।',
+  },
+  exploreMore: { en: 'Explore More. Learn More. Build Your Future.', gu: 'વધુ શોધો. વધુ શીખો. તમારું ભવિષ્ય બનાવો.', hi: 'अधिक खोजें। अधिक सीखें। अपना भविष्य बनाएँ।' },
+  credits: { en: 'Credits', gu: 'ક્રેડિટ્સ', hi: 'क्रेडिट्स' },
+  creditsText: {
+    en: 'Concept, design and development: CS STUDIO. Built with React, TypeScript and Three.js.',
+    gu: 'કલ્પના, ડિઝાઇન અને ડેવલપમેન્ટ: CS STUDIO. React, TypeScript અને Three.js સાથે બનાવેલ.',
+    hi: 'कल्पना, डिज़ाइन और विकास: CS STUDIO. React, TypeScript और Three.js से बनाया गया।',
+  },
+  version: { en: 'Version', gu: 'વર્ઝન', hi: 'वर्ज़न' },
+  contact: { en: 'Contact', gu: 'સંપર્ક', hi: 'संपर्क' },
+  contactPlaceholder: { en: 'your-email@example.com', gu: 'your-email@example.com', hi: 'your-email@example.com' },
+
+  // TECHBOT
+  techbot: { en: 'TECHBOT', gu: 'TECHBOT', hi: 'TECHBOT' },
+  techbotWelcome: {
+    en: 'Hi! I am TECHBOT, your learning assistant. Let’s explore technology together!',
+    gu: 'નમસ્તે! હું TECHBOT છું, તમારો લર્નિંગ સહાયક. ચાલો સાથે ટેકનોલોજી શોધીએ!',
+    hi: 'नमस्ते! मैं TECHBOT हूँ, आपका लर्निंग सहायक। आइए साथ में तकनीक खोजें!',
+  },
+  askTechbot: { en: 'ASK TECHBOT', gu: 'TECHBOT ને પૂછો', hi: 'TECHBOT से पूछें' },
+  hint: { en: 'HINT', gu: 'હિન્ટ', hi: 'संकेत' },
+  speak: { en: 'SPEAK', gu: 'બોલો', hi: 'बोलें' },
+  techbotTip: {
+    en: 'Complete a lesson to earn XP and unlock the next world.',
+    gu: 'XP મેળવવા અને આગલી દુનિયા ખોલવા પાઠ પૂર્ણ કરો.',
+    hi: 'XP कमाने और अगली दुनिया खोलने के लिए पाठ पूरा करें।',
+  },
+
+  // Misc
+  webglOff: {
+    en: '3D view is not available on this device. The 2D illustration is shown instead.',
+    gu: 'આ ઉપકરણ પર 3D વ્યૂ ઉપલબ્ધ નથી. તેના બદલે 2D ચિત્ર બતાવવામાં આવે છે.',
+    hi: 'इस डिवाइस पर 3D व्यू उपलब्ध नहीं है। इसके बदले 2D चित्र दिखाया जा रहा है।',
+  },
+  networkTitle: { en: 'NETWORK BUILDER', gu: 'નેટવર્ક બિલ્ડર', hi: 'नेटवर्क बिल्डर' },
+  robotTitle: { en: 'ROBOT WORKSHOP', gu: 'રોબોટ વર્કશોપ', hi: 'रोबोट वर्कशॉप' },
+  buildAndTest: { en: 'BUILD & TEST', gu: 'બનાવો અને ટેસ્ટ કરો', hi: 'बनाएँ और टेस्ट करें' },
+  testPassed: { en: 'Test passed!', gu: 'ટેસ્ટ પાસ!', hi: 'टेस्ट पास!' },
+  testFailed: { en: 'Test failed — check the connection order.', gu: 'ટેસ્ટ ફેલ — કનેક્શન ક્રમ તપાસો.', hi: 'टेस्ट फेल — कनेक्शन क्रम जाँचें।' },
+} as const satisfies Record<string, Tri>;
+
+export type UIKey = keyof typeof UI;
+
+export function tr(key: UIKey, lang: Lang): string {
+  const entry = UI[key] as Tri;
+  return entry[lang] ?? entry.en;
+}
+
+export function pick(value: Tri | string | undefined, lang: Lang): string {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  return value[lang] || value.en;
+}
