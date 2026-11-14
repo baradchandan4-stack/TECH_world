@@ -7,7 +7,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { sfx, speak } from '../lib/audio';
 import type { Go } from '../navigation';
-import type { Lesson } from '../content/types';
+import type { Lesson, Tri } from '../content/types';
 
 const STEPS = ['explore', 'identify', 'learn', 'watch', 'practice', 'challenge', 'test', 'reward'] as const;
 
