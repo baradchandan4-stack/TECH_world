@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
 import type { Group, Mesh } from 'three';
+import { DoubleSide } from 'three';
 
 type Mood = 'happy' | 'cheer' | 'think' | 'oops';
 
@@ -36,7 +37,7 @@ function BotBody({ mood }: { mood: Mood }) {
         {/* head */}
         <mesh castShadow position={[0, 1.25, 0]}>
           <boxGeometry args={[1.7, 1.35, 1.25]} />
-          <meshStandardMaterial color="#eef4ff" metalness={0.45} roughness={0.28} />
+          <meshStandardMaterial color="#eef4ff" metalness={0.72} roughness={0.18} envMapIntensity={1.2} />
         </mesh>
         {/* face screen */}
         <mesh position={[0, 1.28, 0.66]}>
@@ -98,7 +99,12 @@ function BotBody({ mood }: { mood: Mood }) {
         {/* hover base */}
         <mesh position={[0, -0.55, 0]}>
           <cylinderGeometry args={[0.45, 0.7, 0.3, 20]} />
-          <meshStandardMaterial color="#8b5cf6" emissive="#8b5cf6" emissiveIntensity={0.9} metalness={0.6} roughness={0.3} />
+          <meshStandardMaterial color="#8b5cf6" emissive="#7b3dff" emissiveIntensity={1.1} metalness={0.75} roughness={0.2} />
+        </mesh>
+        {/* hover glow ring */}
+        <mesh position={[0, -0.74, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[0.72, 0.96, 48]} />
+          <meshBasicMaterial color="#38f2ff" transparent opacity={0.42} toneMapped={false} side={DoubleSide} depthWrite={false} />
         </mesh>
       </group>
     </Float>
@@ -109,10 +115,12 @@ export default function TechBot3D({ mood = 'happy', height = 200 }: { mood?: Moo
   return (
     <div style={{ height, width: '100%' }} className="techbot-canvas" aria-hidden>
       <Canvas dpr={[1, 1.6]} camera={{ position: [0, 0.6, 5.2], fov: 42 }} gl={{ antialias: true, alpha: true }}>
-        <ambientLight intensity={0.9} />
-        <directionalLight position={[3, 5, 4]} intensity={1.8} />
-        <pointLight position={[-3, 1, 3]} intensity={18} color="#8b5cf6" />
-        <pointLight position={[3, -1, 3]} intensity={14} color="#25e0f0" />
+        <ambientLight intensity={0.75} />
+        <directionalLight position={[3, 5, 4]} intensity={2} />
+        <pointLight position={[-3, 1, 3]} intensity={22} color="#9d6bff" distance={10} />
+        <pointLight position={[3, -1, 3]} intensity={18} color="#38f2ff" distance={10} />
+        <pointLight position={[0, 1.8, -2.6]} intensity={26} color="#38f2ff" distance={9} />
+        <pointLight position={[-2.4, -1.2, 1.8]} intensity={14} color="#ff5ec4" distance={8} />
         <BotBody mood={mood} />
       </Canvas>
     </div>

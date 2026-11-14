@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
-import { CanvasTexture, SRGBColorSpace } from 'three';
-import type { Group } from 'three';
+import { Environment, Grid, Lightformer, OrbitControls, Sparkles, Stars } from '@react-three/drei';
+import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
+import { CanvasTexture, DoubleSide, Quaternion, SRGBColorSpace, Vector3 } from 'three';
+import type { Group, MeshStandardMaterial } from 'three';
 import { WORLDS, pick } from '../content';
 import type { Lang } from '../content/types';
 
@@ -78,6 +79,84 @@ function WorldLabel({
   );
 }
 
+/** Spinning holographic ring that hovers over each island. */
+function TorusSpin({ color, unlocked }: { color: string; unlocked: boolean }) {
+  const ref = useRef<Group>(null);
+  useFrame((state) => {
+    if (!ref.current) return;
+    ref.current.rotation.z = state.clock.elapsedTime * (unlocked ? 0.55 : 0.15);
+  });
+  return (
+    <group ref={ref} position={[0, 0.32, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh>
+        <torusGeometry args={[1.16, 0.02, 6, 48]} />
+        <meshBasicMaterial
+          color={unlocked ? color : '#2a3560'}
+          transparent
+          opacity={unlocked ? 0.95 : 0.3}
+          toneMapped={false}
+          depthWrite={false}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+/** Energy conduit from the central hub out to an unlocked world. */
+function Beam({ to, color }: { to: [number, number, number]; color: string }) {
+  const mat = useRef<MeshStandardMaterial>(null);
+  const { position, quaternion, length } = useMemo(() => {
+    const start = new Vector3(0, 0.35, 0);
+    const end = new Vector3(to[0], to[1] + 0.25, to[2]);
+    const dir = end.clone().sub(start);
+    const len = dir.length();
+    const mid = start.clone().add(dir.clone().multiplyScalar(0.5));
+    const q = new Quaternion().setFromUnitVectors(new Vector3(0, 1, 0), dir.clone().normalize());
+    return { position: mid, quaternion: q, length: len };
+  }, [to]);
+
+  useFrame(({ clock }) => {
+    if (mat.current) mat.current.opacity = 0.16 + Math.sin(clock.elapsedTime * 1.8 + to[0]) * 0.08;
+  });
+
+  return (
+    <mesh position={position} quaternion={quaternion}>
+      <cylinderGeometry args={[0.014, 0.014, length, 5, 1, true]} />
+      <meshStandardMaterial
+        ref={mat}
+        color={color}
+        emissive={color}
+        emissiveIntensity={2.4}
+        transparent
+        opacity={0.2}
+        toneMapped={false}
+        depthWrite={false}
+      />
+    </mesh>
+  );
+}
+
+/** Three glowing motes orbiting the hub core. */
+function OrbitDots() {
+  const ref = useRef<Group>(null);
+  useFrame((state) => {
+    if (ref.current) ref.current.rotation.y = state.clock.elapsedTime * 0.6;
+  });
+  return (
+    <group ref={ref} position={[0, 1.4, 0]}>
+      {[0, 1, 2].map((i) => {
+        const a = (i / 3) * Math.PI * 2;
+        return (
+          <mesh key={i} position={[Math.cos(a) * 1.6, Math.sin(a * 2) * 0.18, Math.sin(a) * 1.6]}>
+            <sphereGeometry args={[0.07, 12, 10]} />
+            <meshBasicMaterial color="#38f2ff" toneMapped={false} />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+}
+
 interface IslandProps {  index: number;
   total: number;
   world: (typeof WORLDS)[number];
@@ -136,17 +215,36 @@ function Island({ index, total, world, lang, unlocked, done, onSelect }: IslandP
         {unlocked && (
           <mesh position={[0, 2.1, 0]}>
             <cylinderGeometry args={[0.85, 1.05, 4, 14, 1, true]} />
-            <meshStandardMaterial color={world.accent} transparent opacity={0.14} side={2} />
+            <meshBasicMaterial
+              color={world.accent}
+              transparent
+              opacity={0.1}
+              side={DoubleSide}
+              toneMapped={false}
+              depthWrite={false}
+            />
           </mesh>
         )}
+        <mesh position={[0, 0.03, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[1.44, 1.66, 7]} />
+          <meshBasicMaterial
+            color={unlocked ? world.accent : '#2a3560'}
+            transparent
+            opacity={unlocked ? 0.8 : 0.22}
+            toneMapped={false}
+            side={DoubleSide}
+            depthWrite={false}
+          />
+        </mesh>
+        <TorusSpin color={world.accent} unlocked={unlocked} />
         <mesh position={[0, 0.75, 0]} castShadow>
           <sphereGeometry args={[0.62, 22, 18]} />
           <meshStandardMaterial
             color={unlocked ? world.accent : '#2a3560'}
             emissive={unlocked ? world.accent : '#101838'}
-            emissiveIntensity={unlocked ? 0.85 : 0.2}
-            metalness={0.4}
-            roughness={0.3}
+            emissiveIntensity={unlocked ? (hover ? 1.5 : 0.9) : 0.2}
+            metalness={0.55}
+            roughness={0.22}
           />
         </mesh>
         <WorldLabel
@@ -177,8 +275,17 @@ function Hub() {
       </mesh>
       <mesh position={[0, 1.4, 0]}>
         <icosahedronGeometry args={[0.9, 1]} />
-        <meshStandardMaterial color="#8b5cf6" emissive="#8b5cf6" emissiveIntensity={0.8} metalness={0.7} roughness={0.25} />
+        <meshStandardMaterial color="#9d6bff" emissive="#7b3dff" emissiveIntensity={1.15} metalness={0.9} roughness={0.16} />
       </mesh>
+      <mesh position={[0, 1.4, 0]}>
+        <sphereGeometry args={[1.3, 24, 18]} />
+        <meshBasicMaterial color="#38f2ff" transparent opacity={0.09} toneMapped={false} depthWrite={false} />
+      </mesh>
+      <mesh position={[0, 0.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[3.05, 3.32, 64]} />
+        <meshBasicMaterial color="#38f2ff" transparent opacity={0.4} toneMapped={false} side={DoubleSide} depthWrite={false} />
+      </mesh>
+      <OrbitDots />
     </group>
   );
 }
@@ -188,27 +295,57 @@ export default function WorldMapScene({
   unlockedIds,
   completedIds,
   onSelect,
+  quality = 'high',
 }: {
   lang: Lang;
   unlockedIds: string[];
   completedIds: string[];
   onSelect: (id: string) => void;
+  quality?: string;
 }) {
+  const rich = quality !== 'low';
   return (
     <Canvas
       shadows
-      dpr={[1, 1.8]}
+      dpr={rich ? [1, 2] : [1, 1.4]}
       camera={{ position: [0, 9.5, 13.5], fov: 45 }}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
     >
       <color attach="background" args={['#050a20']} />
-      <fog attach="fog" args={['#050a20', 18, 42]} />
-      <ambientLight intensity={0.65} />
-      <directionalLight position={[6, 12, 8]} intensity={1.5} castShadow />
-      <pointLight position={[-8, 6, -6]} intensity={40} color="#8b5cf6" />
-      <pointLight position={[8, 5, 6]} intensity={30} color="#25e0f0" />
-      <Stars radius={70} depth={40} count={2200} factor={3.4} fade speed={0.6} />
+      <fog attach="fog" args={['#050a20', 20, 46]} />
+      <ambientLight intensity={0.55} />
+      <directionalLight position={[6, 12, 8]} intensity={1.6} castShadow />
+      <pointLight position={[-8, 6, -6]} intensity={60} color="#9d6bff" distance={30} />
+      <pointLight position={[8, 5, 6]} intensity={45} color="#38f2ff" distance={30} />
+      <spotLight position={[0, 17, 0]} angle={0.75} penumbra={1} intensity={110} color="#5b8cff" distance={42} />
+      <Environment resolution={rich ? 128 : 32} frames={1}>
+        <Lightformer intensity={2.4} position={[0, 7, -8]} scale={[12, 6, 1]} color="#3b7bff" />
+        <Lightformer intensity={1.7} position={[-8, 3, 6]} scale={[9, 5, 1]} color="#38f2ff" />
+        <Lightformer intensity={1.5} position={[8, 2, 6]} scale={[9, 5, 1]} color="#9d6bff" />
+      </Environment>
+      <Stars radius={70} depth={40} count={rich ? 2600 : 1200} factor={3.4} fade speed={0.6} />
+      {rich && (
+        <Sparkles count={90} scale={[28, 10, 28]} size={2.6} speed={0.35} opacity={0.65} color="#a8ecff" />
+      )}
+      <Grid
+        position={[0, -2.3, 0]}
+        args={[70, 70]}
+        cellSize={0.9}
+        cellThickness={0.6}
+        cellColor="#16336e"
+        sectionSize={4.5}
+        sectionThickness={1.1}
+        sectionColor="#2b7fbf"
+        fadeDistance={40}
+        fadeStrength={1.4}
+        infiniteGrid
+      />
       <Hub />
+      {WORLDS.map((w, i) => {
+        if (!unlockedIds.includes(w.id)) return null;
+        const a = (i / WORLDS.length) * Math.PI * 2 - Math.PI / 2;
+        return <Beam key={`beam-${w.id}`} color={w.accent} to={[Math.cos(a) * 6.4, 0.1, Math.sin(a) * 6.4]} />;
+      })}
       {WORLDS.map((w, i) => (
         <Island
           key={w.id}
@@ -231,6 +368,12 @@ export default function WorldMapScene({
         autoRotateSpeed={0.35}
         target={[0, 0.4, 0]}
       />
+      {rich && (
+        <EffectComposer multisampling={0}>
+          <Bloom intensity={1.1} luminanceThreshold={0.2} luminanceSmoothing={0.55} mipmapBlur radius={0.72} />
+          <Vignette offset={0.26} darkness={0.72} />
+        </EffectComposer>
+      )}
     </Canvas>
   );
 }

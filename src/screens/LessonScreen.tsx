@@ -4,7 +4,9 @@ import { useGame } from '../state/game';
 import { Bar, Btn, Card, TopBar } from '../components/UI';
 import { ComponentModel } from '../three/ComponentModel';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, ContactShadows, Environment, Lightformer } from '@react-three/drei';
+import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
+import { DoubleSide } from 'three';
 import { sfx, speak } from '../lib/audio';
 import type { Go } from '../navigation';
 import type { Lesson, Tri } from '../content/types';
@@ -24,20 +26,45 @@ function seededShuffle<T>(arr: T[], seed: string): T[] {
 }
 
 function ModelStage({ lesson, animate }: { lesson: Lesson; animate: boolean }) {
+  const { p } = useGame();
+  const rich = p.settings.quality !== 'low';
   return (
     <div className="model-stage">
-      <Canvas shadows dpr={[1, 1.7]} camera={{ position: [0, 1.6, 4.4], fov: 42 }}>
+      <Canvas shadows dpr={rich ? [1, 2] : [1, 1.3]} camera={{ position: [0, 1.6, 4.4], fov: 42 }}>
         <color attach="background" args={['#080e26']} />
-        <fog attach="fog" args={['#080e26', 8, 18]} />
-        <ambientLight intensity={0.7} />
-        <directionalLight position={[3, 5, 4]} intensity={1.5} castShadow />
-        <pointLight position={[-3, 2, -2]} intensity={22} color="#25e0f0" />
+        <fog attach="fog" args={['#080e26', 10, 22]} />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[3, 5, 4]} intensity={1.7} castShadow />
+        <pointLight position={[-3, 2, -2]} intensity={30} color="#38f2ff" distance={14} />
+        <pointLight position={[3, 1, 2]} intensity={22} color="#9d6bff" distance={14} />
+        <Environment resolution={rich ? 128 : 32} frames={1}>
+          <Lightformer intensity={2.2} position={[0, 5, -4]} scale={[9, 5, 1]} color="#3b7bff" />
+          <Lightformer intensity={1.8} position={[-5, 2, 3]} scale={[6, 4, 1]} color="#38f2ff" />
+          <Lightformer intensity={1.5} position={[5, 1, 3]} scale={[6, 4, 1]} color="#9d6bff" />
+        </Environment>
         <Suspense fallback={null}>
           <group position={[0, 0, 0]}>
             <ComponentModel kind={lesson.model} spin={animate} bob={animate} scale={1.25} />
           </group>
         </Suspense>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.62, 0]} receiveShadow>
+          <circleGeometry args={[2.2, 64]} />
+          <meshStandardMaterial color="#0a1533" metalness={0.92} roughness={0.16} />
+        </mesh>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.6, 0]}>
+          <ringGeometry args={[2.02, 2.16, 64]} />
+          <meshBasicMaterial color="#38f2ff" transparent opacity={0.55} toneMapped={false} side={DoubleSide} />
+        </mesh>
+        {rich && (
+          <ContactShadows position={[0, -0.61, 0]} opacity={0.55} scale={6} blur={2.6} far={2.4} color="#040a1e" />
+        )}
         <OrbitControls enablePan={false} minDistance={2.6} maxDistance={7} autoRotate={animate} autoRotateSpeed={1.1} />
+        {rich && (
+          <EffectComposer multisampling={0}>
+            <Bloom intensity={0.85} luminanceThreshold={0.24} luminanceSmoothing={0.6} mipmapBlur radius={0.6} />
+            <Vignette offset={0.3} darkness={0.62} />
+          </EffectComposer>
+        )}
       </Canvas>
     </div>
   );
