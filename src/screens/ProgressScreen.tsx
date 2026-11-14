@@ -138,7 +138,7 @@ export default function ProgressScreen({ go }: { go: Go }) {
           <div className="pill-row">
             {ACHIEVEMENTS.slice(0, 6).map((a) => (
               <span key={a.id} className={`pill ${p.achievements.includes(a.id) ? 'on' : ''}`}>
-                {a.icon} {pick(a.title, lang)}
+                {a.icon} {pick(a.name, lang)}
               </span>
             ))}
           </div>
