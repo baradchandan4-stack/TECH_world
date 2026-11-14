@@ -21,7 +21,8 @@ export const ALL_LESSONS: Lesson[] = [
 
 export const LESSON_BY_ID: Record<string, Lesson> = Object.fromEntries(ALL_LESSONS.map((l) => [l.id, l]));
 
-export const pick = (tri: Tri | undefined, lang: Lang): string => (tri ? tri[lang] || tri.en : '');
+export const pick = (tri: Tri | string | undefined, lang: Lang): string =>
+  typeof tri === 'string' ? tri : tri ? tri[lang] || tri.en : '';
 
 export interface RankDef {
   level: number;

@@ -83,17 +83,19 @@ export default function LessonScreen({ lessonId, go }: { lessonId: string; go: G
   const practiceCorrect = practicePick !== null && practiceOptions[practicePick]?.id === lesson.id;
   const challengeCorrect = challengePick !== null && challengeOptions[challengePick]?.id === lesson.id;
 
+  const STEP_LABELS: Record<string, Tri> = {
+    explore: { en: 'Explore', gu: 'શોધો', hi: 'खोजें' },
+    identify: { en: 'Identify', gu: 'ઓળખો', hi: 'पहचानें' },
+    learn: { en: 'Learn', gu: 'શીખો', hi: 'सीखें' },
+    watch: { en: 'Watch', gu: 'જુઓ', hi: 'देखें' },
+    practice: { en: 'Practice', gu: 'અભ્યાસ', hi: 'अभ्यास' },
+    challenge: { en: 'Challenge', gu: 'ચેલેન્જ', hi: 'चुनौती' },
+    test: { en: 'Test', gu: 'ટેસ્ટ', hi: 'परीक्षा' },
+    reward: { en: 'Reward', gu: 'ઇનામ', hi: 'इनाम' },
+  };
+
   const stepLabel = (s: string) =>
-    tr({
-      explore: { en: 'Explore', gu: 'શોધો', hi: 'खोजें' }[s] ?? 'Explore',
-      identify: { en: 'Identify', gu: 'ઓળખો', hi: 'पहचानें' }[s] ?? '',
-      learn: { en: 'Learn', gu: 'શીખો', hi: 'सीखें' }[s] ?? '',
-      watch: { en: 'Watch', gu: 'જુઓ', hi: 'देखें' }[s] ?? '',
-      practice: { en: 'Practice', gu: 'અભ્યાસ', hi: 'अभ्यास' }[s] ?? '',
-      challenge: { en: 'Challenge', gu: 'ચેલેન્જ', hi: 'चुनौती' }[s] ?? '',
-      test: { en: 'Test', gu: 'ટેસ્ટ', hi: 'परीक्षा' }[s] ?? '',
-      reward: { en: 'Reward', gu: 'ઇનામ', hi: 'इनाम' }[s] ?? '',
-    });
+    tr(STEP_LABELS[s] ?? { en: 'Explore', gu: 'શોધો', hi: 'खोजें' });
 
   const answerQuiz = (idx: number) => {
     if (quizPick !== null) return;

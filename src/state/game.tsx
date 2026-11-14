@@ -112,7 +112,7 @@ interface GameCtx {
   nextXp: number;
   levelProgress: number;
   t: (key: UIKey) => string;
-  tr: (tri: Tri | undefined) => string;
+  tr: (tri: Tri | string | undefined) => string;
   setLang: (l: Lang) => void;
   patch: (part: Partial<PlayerState>) => void;
   award: (opts: AwardOpts) => void;
@@ -210,7 +210,7 @@ export function GameProvider({ children }: { children: ReactNode }) {
   const levelProgress = level >= 10 ? 1 : Math.max(0, Math.min(1, (p.xp - prevXp) / Math.max(1, nextXp - prevXp)));
 
   const t = useCallback((key: UIKey) => (UI[key] ? UI[key][p.lang] || UI[key].en : String(key)), [p.lang]);
-  const tr = useCallback((tri: Tri | undefined) => pick(tri, p.lang), [p.lang]);
+  const tr = useCallback((tri: Tri | string | undefined) => pick(tri, p.lang), [p.lang]);
 
   const patch = useCallback((part: Partial<PlayerState>) => {
     setP((cur) => ({ ...cur, ...part }));
