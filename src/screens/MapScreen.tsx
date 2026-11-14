@@ -26,10 +26,16 @@ export default function MapScreen({ go }: { go: Go }) {
       <div className="screen">
         <Card glow="#8b5cf6" style={{ padding: 10 }}>
           <div className="map-shell">
+            <div className="map-hud">
+              <span className="map-hud-chip">⭐ {t('level')} {level}</span>
+              <span className="map-hud-chip">🌍 {unlockedWorlds.length}/{WORLDS.length}</span>
+              <span className="map-hud-chip">🏁 {p.worldsDone.length} {t('complete')}</span>
+            </div>
             <div className="map-canvas">
               <Suspense fallback={<div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>…</div>}>
                 <WorldMapScene
                   lang={lang}
+                  quality={p.settings.quality}
                   unlockedIds={unlockedWorlds}
                   completedIds={p.worldsDone}
                   onSelect={open}

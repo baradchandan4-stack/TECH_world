@@ -64,7 +64,12 @@ export default function Home({ go }: { go: Go }) {
               </Btn>
             </div>
           </div>
-          <div style={{ display: 'grid', placeItems: 'center' }}>
+          <div className="hero-visual">
+            <div className="hero-orbit" aria-hidden>
+              <i />
+              <i />
+              <i />
+            </div>
             <TechBot3D mood="happy" height={210} />
           </div>
         </div>

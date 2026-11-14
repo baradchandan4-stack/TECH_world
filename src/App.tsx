@@ -17,6 +17,20 @@ import Settings from './screens/Settings';
 import About from './screens/About';
 import { sfx, speak } from './lib/audio';
 
+function Backdrop() {
+  return (
+    <div className="bg-fx" aria-hidden>
+      <span className="orb orb-a" />
+      <span className="orb orb-b" />
+      <span className="orb orb-c" />
+      <span className="starfield" />
+      <span className="grid-fx" />
+      <span className="scanlines" />
+      <span className="vignette" />
+    </div>
+  );
+}
+
 function Shell() {
   const { p, t, tr, lang } = useGame();
   const [view, setView] = useState<View>('home');
@@ -93,6 +107,7 @@ function Shell() {
   if (!p.onboarded) {
     return (
       <div className="app-shell">
+        <Backdrop />
         <LanguageScreen onDone={() => go('home')} />
         <Toasts />
       </div>
@@ -101,6 +116,7 @@ function Shell() {
 
   return (
     <div className="app-shell">
+      <Backdrop />
       <main key={view} className="view-wrap">
         {view === 'home' ? <Home go={go} /> : null}
         {view === 'map' ? <MapScreen go={go} /> : null}
