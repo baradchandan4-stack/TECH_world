@@ -1,12 +1,84 @@
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Html, OrbitControls, Stars } from '@react-three/drei';
+import { OrbitControls, Stars } from '@react-three/drei';
+import { CanvasTexture, SRGBColorSpace } from 'three';
 import type { Group } from 'three';
 import { WORLDS, pick } from '../content';
 import type { Lang } from '../content/types';
 
-interface IslandProps {
-  index: number;
+/**
+ * World name plate drawn into a canvas texture and shown as a sprite.
+ * Labels stay inside the WebGL scene (no DOM portals), so they cannot collide
+ * with React's commit when a screen with a canvas unmounts.
+ */
+function makeLabelTexture(text: string, color: string, locked: boolean) {
+  const fontSize = 46;
+  const pad = 30;
+  const font = `700 ${fontSize}px system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Gujarati", "Noto Sans Devanagari", sans-serif`;
+  const measure = document.createElement('canvas').getContext('2d');
+  if (!measure) return null;
+  measure.font = font;
+  const width = Math.ceil(measure.measureText(text).width) + pad * 2;
+  const height = fontSize + pad * 2;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.font = font;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const r = 20;
+  ctx.beginPath();
+  ctx.moveTo(r, 2);
+  ctx.lineTo(width - r, 2);
+  ctx.quadraticCurveTo(width - 2, 2, width - 2, r);
+  ctx.lineTo(width - 2, height - r);
+  ctx.quadraticCurveTo(width - 2, height - 2, width - r, height - 2);
+  ctx.lineTo(r, height - 2);
+  ctx.quadraticCurveTo(2, height - 2, 2, height - r);
+  ctx.lineTo(2, r);
+  ctx.quadraticCurveTo(2, 2, r, 2);
+  ctx.closePath();
+  ctx.fillStyle = locked ? 'rgba(14,20,46,0.9)' : 'rgba(6,14,40,0.92)';
+  ctx.fill();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = locked ? '#3a4670' : color;
+  ctx.stroke();
+  ctx.fillStyle = locked ? '#93a0cc' : '#ffffff';
+  ctx.fillText(text, width / 2, height / 2 + 2);
+
+  const texture = new CanvasTexture(canvas);
+  texture.colorSpace = SRGBColorSpace;
+  texture.anisotropy = 4;
+  return { texture, aspect: width / height };
+}
+
+function WorldLabel({
+  text,
+  color,
+  locked,
+  position,
+}: {
+  text: string;
+  color: string;
+  locked: boolean;
+  position: [number, number, number];
+}) {
+  const label = useMemo(() => makeLabelTexture(text, color, locked), [text, color, locked]);
+  useEffect(() => () => label?.texture.dispose(), [label]);
+  if (!label) return null;
+  const height = 0.66;
+  return (
+    <sprite position={position} scale={[height * label.aspect, height, 1]} renderOrder={3}>
+      <spriteMaterial map={label.texture} transparent depthWrite={false} toneMapped={false} />
+    </sprite>
+  );
+}
+
+interface IslandProps {  index: number;
   total: number;
   world: (typeof WORLDS)[number];
   lang: Lang;
@@ -77,13 +149,12 @@ function Island({ index, total, world, lang, unlocked, done, onSelect }: IslandP
             roughness={0.3}
           />
         </mesh>
-        <Html center distanceFactor={11} position={[0, 1.85, 0]} zIndexRange={[20, 0]}>
-          <div className={`map-tag ${unlocked ? '' : 'locked'}`} style={{ borderColor: unlocked ? world.accent : '#3a4670' }}>
-            <span className="map-emoji">{unlocked ? world.emoji : '🔒'}</span>
-            <strong>{pick(world.title, lang)}</strong>
-            <small>{done ? '✔ ' + (lang === 'gu' ? 'પૂર્ણ' : lang === 'hi' ? 'पूर्ण' : 'Completed') : unlocked ? pick(world.subtitle, lang) : `${lang === 'gu' ? 'લેવલ' : lang === 'hi' ? 'लेवल' : 'Level'} ${world.unlockLevel}`}</small>
-          </div>
-        </Html>
+        <WorldLabel
+          text={`${unlocked ? world.emoji : '\u{1F512}'} ${pick(world.title, lang)}${done ? ' \u2714' : ''}`}
+          color={world.accent}
+          locked={!unlocked}
+          position={[0, 2.45, 0]}
+        />
       </group>
     </group>
   );

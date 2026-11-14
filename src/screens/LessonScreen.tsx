@@ -4,7 +4,7 @@ import { useGame } from '../state/game';
 import { Bar, Btn, Card, TopBar } from '../components/UI';
 import { ComponentModel } from '../three/ComponentModel';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stage } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import { sfx, speak } from '../lib/audio';
 import type { Go } from '../navigation';
 import type { Lesson, Tri } from '../content/types';
@@ -33,9 +33,9 @@ function ModelStage({ lesson, animate }: { lesson: Lesson; animate: boolean }) {
         <directionalLight position={[3, 5, 4]} intensity={1.5} castShadow />
         <pointLight position={[-3, 2, -2]} intensity={22} color="#25e0f0" />
         <Suspense fallback={null}>
-          <Stage intensity={0.4} environment={null} shadows={false}>
+          <group position={[0, 0, 0]}>
             <ComponentModel kind={lesson.model} spin={animate} bob={animate} scale={1.25} />
-          </Stage>
+          </group>
         </Suspense>
         <OrbitControls enablePan={false} minDistance={2.6} maxDistance={7} autoRotate={animate} autoRotateSpeed={1.1} />
       </Canvas>
